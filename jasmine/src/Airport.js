@@ -1,12 +1,27 @@
-var Airport = function() {
-  this.planes = [];
+'use strict';
+
+function Airport(){
+  this._hangar = [];
+}
+Airport.prototype.planes = function(){
+  return this._hangar;
 };
 
-Airport.prototype.land = function (plane) {
-  this.planes.push(plane);
+Airport.prototype.clearForLanding = function(plane) {
+  this._hangar.push(plane);
 };
 
-Airport.prototype.takeOff = function (plane) {
-  var index = this.planes.indexOf(plane);
-  this.planes.splice(index,1)
+Airport.prototype.clearForTakeOff = function(plane) {
+  this._hangar = [];
+};
+
+Airport.prototype.isStormy = function() {
+  return false;
+};
+
+Airport.prototype.clearForTakeOff = function(plane) {
+  if(this.isStormy()) {
+    throw new Error('cannot takeoff during storm');
+  }
+  this._hangar = [];
 };
